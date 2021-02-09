@@ -6,11 +6,10 @@ import axios from 'axios';
 import { Icon } from 'react-native-elements'
 import RequestListItem from './RequestListItem';
 import { Actions } from 'react-native-gifted-chat';
-
+import { base_url } from '../../API/types';
 
 export default class MessagesList extends Component{
-// export default function MessagesList() {
-
+  
   constructor(){
     super();
     this.state ={

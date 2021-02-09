@@ -13,7 +13,7 @@ import { View } from 'react-native-animatable';
 import { Textarea } from 'native-base'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
-
+import { base_url } from '../../API/types';
 const data = [{ key: '1' }];
 export default class UserProfileScreen extends Component {
 

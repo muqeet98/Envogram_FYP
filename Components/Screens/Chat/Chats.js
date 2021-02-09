@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { AsyncStorage } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import axios from 'axios';
+import { base_url } from '../../API/types';
 export default class Chats extends Component {
 	constructor(props) {
 		super(props);
@@ -32,7 +33,7 @@ export default class Chats extends Component {
 		console.log('Authorization', this.props.token_type + ' ' + this.props.token);
 		axios({
 			method: 'get',
-			url: base_url+'/api/user/messages/' + this.state.to,
+			url: 'https://envogram.softgear.site/api/user/messages/' + this.props.to,
 			headers: {
 				Authorization: this.props.token_type + ' ' + this.props.token,
 				'Content-Type': 'application/json',
@@ -41,24 +42,35 @@ export default class Chats extends Component {
 		})
 			.then((res) => {
 				console.log('Hai', res);
-				res.data.forEach((element) => {
-					console.log(element.from_user.id);
+
+				res.data.forEach((element,index) => {
+					// console.log({
+					// 	_id: element.id,
+					// 	text: element.text,
+					// 	createdAt: element.created_at,
+					// 	user: {
+					// 		_id: element.from,
+					// 		name: element.from
+					// 	}
+
+					// });
+
+					if(this.state.messages.length<=index)
 					this.state.messages.push({
 						_id: element.id,
 						text: element.text,
 						createdAt: element.created_at,
 						user: {
-							_id: element.from_user.id,
-							name: element.from_user.name
+							_id: parseInt(element.from),
+							name: element.from
 						}
 
-            
 					});
-				});
-
-				this.setState({
-					messages: this.state.messages
-				});
+					// this.state.messages.reverse()
+					this.setState({
+						messages: this.state.messages
+					});
+				});	
 			})
 			.catch((err) => {
 				console.log(err);
@@ -66,8 +78,8 @@ export default class Chats extends Component {
 	}
 
 	sendMessage(text) {
-		console.log(this.state.to);
-		console.log(this.state.messages);
+		console.log("Hai", this.props.to);
+		// console.log(this.state.messages);
 		fetch(base_url+'/api/user/messages', {
 			method: 'post',
 			headers: {
@@ -77,7 +89,7 @@ export default class Chats extends Component {
 			},
 
 			body: JSON.stringify({
-				to: this.state.to,
+				to: this.props.to,
 				text: text
 			})
 		})
@@ -91,9 +103,15 @@ export default class Chats extends Component {
 
 	// }
 	componentDidMount() {
-		this.setState({ to: this.props.to });
+		console.log("hello", this.props.to)
+		// this.setState({ to: this.props.to });
+		// console.log(this.state.to, +'        '+ this.props.to)
 		this.retriveData();
-		this.loadMessages();
+		setInterval(async () => {
+			await this.loadMessages();
+		
+		  }, 10000/2);
+		// this.loadMessages();
 
 		// this.setState({
 		//   messages: [
@@ -102,7 +120,7 @@ export default class Chats extends Component {
 		//       text: this.props.text,
 		//       createdAt: new Date(),
 		//       user: {
-		//         _id: 2,
+		//         _id: 3,
 		//         name: this.props.from,
 		//       },
 		//     },
@@ -113,22 +131,23 @@ export default class Chats extends Component {
 	onSend(messages = []) {
 		this.setState((previousState) => {
 			return {
-				messages: GiftedChat.append(previousState.messages, messages.reverse())
+				messages: GiftedChat.append(previousState.messages, messages)
 			};
 		});
 		this.sendMessage(messages[0].text);
 	}
 
 	render() {
+		console.log(this.props.id+"kk")
 		return (
 			<GiftedChat
-				 inverted={false}
+				inverted={true}
 				// scrollToBottom={true}
 				messages={this.state.messages}
-				//alignTop={true}
+				alignTop={false}
 				onSend={((text) => this.setState({ text: text }), this.onSend)}
 				user={{
-					_id: this.props.id
+					_id: parseInt(this.props.id) 
 				}}
 			/>
 		);

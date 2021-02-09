@@ -4,8 +4,8 @@ export const LOGIN_USER_SUCCESS = 'login_user_success'
 export const LOGIN_USER_FAILED = 'login_user_failed'
 export const LOADING_ATTEMPT = 'loading_attempt'
 export const ALREADY_LOGIN = 'already_login'
-// export const base_url='https://envogram.softgear.site';
-export const base_url='http://192.168.18.7:8000';
+export const base_url='https://envogram.softgear.site';
+// export const base_url='http://192.168.18.7:8000';
 
 // Users
 

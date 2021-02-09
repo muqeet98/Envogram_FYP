@@ -5,7 +5,8 @@ import {Button} from 'react-native-elements'
 import axios from 'axios';
 import {Follow_Unfollow} from '../../API/types'
 import {userProfile} from '../../API/types'
-import { Actions } from 'react-native-gifted-chat';
+// import { Actions } from 'react-native-gifted-chat';
+import { Actions } from 'react-native-router-flux'
 import Modal from 'react-native-modal'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { Textarea } from 'native-base'
@@ -21,6 +22,10 @@ export default class UserProfileHeader extends Component {
       isfollowing:'',
       followers:'',
       following:'',
+      to: '',
+      email: '',
+      name: '',
+      id: ''
     }
   }
   UNSAFE_componentWillMount(){
@@ -46,10 +51,16 @@ export default class UserProfileHeader extends Component {
     })
       .then(res => {
        let temp=JSON.stringify(res.data);
+       console.log("HAhaha", res.data.profile.email);
         if(temp.includes('name')){
           this.setState({
             isfollowing: res.data.following,
             followers: res.data.followers,
+            to: res.data.profile.id,
+            email: res.data.profile.email,
+            name: res.data.profile.name,
+            
+
           })
           if(this.state.isfollowing == true){
             this.setState({following:"Unfollow"})
@@ -126,12 +137,11 @@ export default class UserProfileHeader extends Component {
               titleStyle={{ color: "#000" }}
               buttonStyle={[Styles.messageButton]}
               title="Message"
-              onPress={()=>Actions.Chat1()}
+              onPress = {()=>Actions.Chat({ text: this.state.email,name:this.state.name,to:this.state.to,token_type:this.state.token_type,token:this.state.token, id: this.state.user_id})}
               />
           </View>
         </View>
-      </View>
-      
+      </View>  
     );
   }
 }

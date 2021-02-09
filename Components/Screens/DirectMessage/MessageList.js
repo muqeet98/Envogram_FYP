@@ -30,60 +30,63 @@ export default class MessagesList extends Component {
       this.setState({token: await AsyncStorage.getItem('token')})
       this.setState({token_type: await AsyncStorage.getItem('token_type')})
       this.setState({id: await AsyncStorage.getItem('id')})
-       this.getMessages()
+      this.getMessages()
   }
 
   getMessages(){
   console.log("hai");
-    // axios({
-    //   method: 'get',
-    //   url: allusers,
-    //   headers: {
-    //     'Authorization':this.state.token_type+' '+this.state.token,
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //   },
-    // })
-    //   .then(res => {
-    //    let temp=JSON.stringify(res.data);
-    //     if(temp != null){
-    //       this.setState({
-    //         dataSource: res
-    //       })
-    //     }
-    //     else{
-    //       console.log(res.data)
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
-
-    fetch(allusers, {
-      method: "get",
+    axios({
+      method: 'get',
+      url: allusers,
       headers: {
         'Authorization':this.state.token_type+' '+this.state.token,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-    }).then(res => res.json())
-      .then(data => {
-        console.log("Hai Data",data)
-        this.setState({
-          dataSource: data
-        
-        })
-        console.log('Data hai' + this.state.dataSource)
+    })
+      .then(res => {
+       let temp= res.data.data;
+        if(temp != null){
+          console.log(temp)
+          this.setState({
+            dataSource: temp
+          })
+          console.log("Hai Data Done", this.state.dataSource)
+        }
+        else{
+          console.log(res.data)
+        }
       })
+      .catch(err => {
+        console.log(err);
+      })
+
+    // fetch(allusers, {
+    //   method: "get",
+    //   headers: {
+    //     'Authorization':this.state.token_type+' '+this.state.token,
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //   },
+    // }).then(res => res.json())
+    //   .then(data => {
+    //     console.log("Hai Data",data.data)
+    //     // this.setState({
+    //     //   dataSource: data.data
+        
+    //     // })
+    //     console.log('Data hai' + this.state.dataSource)
+    //   })
 
   }
 
 
  MessageListItem = ({item}) => {
-   let navigation = this.props;
-   if(item.to == this.state.id){
+  //  let navigation = this.props;
+  //  if(item.to == this.state.id){
     return (
-      <TouchableOpacity onPress = {()=>Actions.Chat({text:item.text,from:item.from_user.name,to:item.from,token_type:this.state.token_type,token:this.state.token})} >
+      // <TouchableOpacity onPress = {()=>Actions.Chat({text:item.text,from:item.from_user.name,to:item.from,token_type:this.state.token_type,token:this.state.token})} >
+        <TouchableOpacity onPress = {()=>Actions.Chat({ text: item.email,name:item.name,to:item.id,token_type:this.state.token_type,token:this.state.token, id: this.state.id})} >
         <View
           style={{
             flexDirection: 'row',
@@ -102,7 +105,7 @@ export default class MessagesList extends Component {
                 {item.name}
               </Text>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={{color: colors.textFaded2}}>Hai</Text>
+        <Text style={{color: colors.textFaded2}}>{item.email}</Text>
               </View>
             </View>
           </View>
@@ -119,10 +122,10 @@ export default class MessagesList extends Component {
         </View>
       </TouchableOpacity>
     );
-  }
-  else{
-    <Text style = {{fontSize:18, alignSelf:'center'}} >No Messages</Text>
-  }
+  // }
+  // else{
+  //   <Text style = {{fontSize:18, alignSelf:'center'}} >No Messages</Text>
+  // }
  }
 
 
@@ -133,6 +136,7 @@ export default class MessagesList extends Component {
       <FlatList
         data={this.state.dataSource}
         renderItem={this.MessageListItem}
+        keyExtractor={item => item.id}
       />
     ); 
   }
