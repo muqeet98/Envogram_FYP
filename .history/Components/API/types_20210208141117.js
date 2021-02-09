@@ -4,8 +4,7 @@ export const LOGIN_USER_SUCCESS = 'login_user_success'
 export const LOGIN_USER_FAILED = 'login_user_failed'
 export const LOADING_ATTEMPT = 'loading_attempt'
 export const ALREADY_LOGIN = 'already_login'
-// export const base_url='https://envogram.softgear.site';
-export const base_url='http://192.168.18.7:8000';
+
 
 // Users
 
@@ -19,7 +18,7 @@ export const urlProfile = base_url+'/api/user/'
 export const userProfile =  base_url+'/api/user/user-profile-with-followers-followingcheck/'
 export const userByDepartment = base_url+'/api/user-by-department/'
 export const urlMessages = base_url+'/api/user/messages/'
-export const urlUpdateProfile =  base_url+'/api/user/update-profile/'
+export const urlUpdateProfile = 'http://192.168.18.7:8000/api/user/update-profile/'
 export const sendRequest = base_url+'/api/user/chat-request'
 export const acceptChatReq= base_url+'/api/user/accept-chat-request/'
 export const deleteChatReq= base_url+'/api/user/chat-request/' 

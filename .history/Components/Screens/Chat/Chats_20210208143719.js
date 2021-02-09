@@ -32,7 +32,7 @@ export default class Chats extends Component {
 		console.log('Authorization', this.props.token_type + ' ' + this.props.token);
 		axios({
 			method: 'get',
-			url: base_url+'/api/user/messages/' + this.state.to,
+			url: 'base_url+/api/user/messages/' + this.state.to,
 			headers: {
 				Authorization: this.props.token_type + ' ' + this.props.token,
 				'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export default class Chats extends Component {
 	sendMessage(text) {
 		console.log(this.state.to);
 		console.log(this.state.messages);
-		fetch(base_url+'/api/user/messages', {
+		fetch('base_url+/api/user/messages', {
 			method: 'post',
 			headers: {
 				Authorization: this.props.token_type + ' ' + this.props.token,

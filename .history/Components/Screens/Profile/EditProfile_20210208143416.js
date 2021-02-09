@@ -120,8 +120,8 @@ export default class EditProfile extends Component {
 		})
 			.then((Response) => Response.json())
 			.then((responseData) => {
-				// alert('Updated Successfully!', responseData);
-        console.log('Hai', responseData);
+				alert('Updated Successfully!', responseData);
+        console.log('Hai', this.state.token_type + ' ' + this.state.token);
         // Actions.
 			})
 			.catch((error) => console.log(error));

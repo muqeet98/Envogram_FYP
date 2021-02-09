@@ -116,7 +116,7 @@ export default function Requests() {
 //   this.setState({ token: await AsyncStorage.getItem('token')})
 //   this.setState({ token_type: await AsyncStorage.getItem('token_type')})
 
-//   fetch(base_url+'/api/user/chat-request', {
+//   fetch('base_url+/api/user/chat-request', {
 //     method: "get",
 //     headers: {
 //       Authorization: this.state.token_type + ' ' + this.state.token ,

@@ -94,15 +94,13 @@ export default class EditProfile extends Component {
 	};
 
 	PostData = async () => {
-      if(this.state.name==''){
+      if(name==''){
 		  Alert.alert("Name cannot be empty");
 	  }else{
 		this.state.PostArray.push({
 			name: this.state.name,
 			username: this.state.username,
 			email: this.state.email,
-			phone_number: this.state.phone_number,
-
 			education: this.state.education,
 			work_history: this.state.work_history,
 		    photo: this.state.base64string
@@ -120,8 +118,8 @@ export default class EditProfile extends Component {
 		})
 			.then((Response) => Response.json())
 			.then((responseData) => {
-				// alert('Updated Successfully!', responseData);
-        console.log('Hai', responseData);
+				alert('Updated Successfully!', responseData);
+        console.log('Hai', this.state.token_type + ' ' + this.state.token);
         // Actions.
 			})
 			.catch((error) => console.log(error));
@@ -227,7 +225,7 @@ export default class EditProfile extends Component {
 							autoCapitalize="none"
                             onChangeText={(text)=>{
 								this.setState({
-									name:text
+									name=text
 								})
 							}}
 							value={this.state.name}
@@ -251,22 +249,20 @@ export default class EditProfile extends Component {
 							placeholderTextColor="grey"
 						/>
             
-            <TextInput style={styles.loginFormTextInput}
+            {/* <TextInput style={styles.loginFormTextInput}
               autoCapitalize="none"
               keyboardType='phone-pad'
               placeholder="Phone Number"
               placeholderTextColor="grey"
               onChangeText = {(text)=>this.setState({phone_number:text})}
-              />
+              /> */}
 
 						<TextInput
 							style={styles.loginFormTextInput}
 							autoCapitalize="none"
 							keyboardType="default"
 							placeholder= "Education"
-							value={this.state.education}
 							placeholderTextColor="grey"
-							
 							onChangeText={(text) => this.setState({ education: text })}
 						/>
 						<TextInput
@@ -275,7 +271,6 @@ export default class EditProfile extends Component {
 							keyboardType="default"
 							placeholder="Work History"
 							placeholderTextColor="grey"
-							value={this.state.work_history}
 							onChangeText={(text) => this.setState({ work_history: text })}
 						/>
 					</View>

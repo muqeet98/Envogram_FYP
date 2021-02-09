@@ -108,7 +108,7 @@ export default class UserProfileScreen extends Component {
 
   PostData () {
 
-    fetch(base_url+'/api/user/chat-request', {
+    fetch('base_url+/api/user/chat-request', {
         method: "post",
         headers: {
             Authorization: this.state.token_type + ' ' + this.state.token,

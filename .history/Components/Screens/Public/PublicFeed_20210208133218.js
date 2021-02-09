@@ -4,7 +4,8 @@ import {FlatList} from 'react-native-gesture-handler';
 import {url1} from '../../API/types';
 import axios from 'axios';
 
-export default class DepartmentFeed extends Component {
+
+export default class PublicFeed extends Component {
   constructor(){
     super();
     this.state = {
@@ -29,7 +30,7 @@ export default class DepartmentFeed extends Component {
   if(this.state.token!='' && this.state.token_type!=''){
     axios({
       method: 'get',
-      url: url1 +'Department',
+      url: url1 +'Public',
       headers: {
         'Authorization':this.state.token_type+' '+this.state.token,
         'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ export default class DepartmentFeed extends Component {
           })
         }
         else{
-          // console.log(res.data);
+          console.log(res.data)
         }
       })
       .catch(err => {
@@ -67,8 +68,8 @@ export default class DepartmentFeed extends Component {
         {/* <Text style={{left:110,top:25,color:"grey"}} >10min ago </Text> */}
         </View>
     <View style={styles.profileContainer} >
-    <Image 
-      source = {{uri:'data:image/png;base64,'+item.photo}}
+      <Image 
+      source = {{uri:item.photo}}
       />
     </View>
         <View style={styles.innerContainer}>
@@ -84,6 +85,7 @@ export default class DepartmentFeed extends Component {
   render(){
     return (
         <FlatList
+        refreshing={true}
         data={this.state.dataSource}
         style={{marginTop: 1, marginStart: 1}}
         renderItem={this.Test}

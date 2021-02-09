@@ -41,11 +41,10 @@ export default class UserBio extends Component {
     })
       .then(res => {
        let temp=JSON.stringify(res.data);
-       console.log(res);
           this.setState({name: res.data.name})
           this.setState({username: res.data.username})
           this.setState({school: res.data.school})
-          this.setState({photo: 'data:image/png;base64,'+res.data.photo})
+          this.setState({photo: res.data.photo})
       })
       .catch(err => {
         console.log(err);

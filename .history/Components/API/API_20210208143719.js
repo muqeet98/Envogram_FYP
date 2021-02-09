@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = base_url+'/';
+const baseUrl = 'base_url+/';
 
 export async function login(data){
   axios({

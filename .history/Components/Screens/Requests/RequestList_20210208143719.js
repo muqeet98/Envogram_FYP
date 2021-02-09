@@ -145,7 +145,7 @@ export default class MessagesList extends Component{
     console.log(this.state.token)
   axios({
     method: 'get',
-    url: base_url+'/api/user/chat-request',
+    url: 'base_url+/api/user/chat-request',
     headers: {
       Authorization: this.state.token_type + ' ' + this.state.token,
       'Content-Type': 'application/json',
