@@ -33,7 +33,7 @@ export default class Chats extends Component {
 		console.log('Authorization', this.props.token_type + ' ' + this.props.token);
 		axios({
 			method: 'get',
-			url: 'https://envogram.softgear.site/api/user/messages/' + this.props.to,
+			url: base_url +'/api/user/messages/' + this.props.to,
 			headers: {
 				Authorization: this.props.token_type + ' ' + this.props.token,
 				'Content-Type': 'application/json',
@@ -66,10 +66,12 @@ export default class Chats extends Component {
 						}
 
 					});
+
 					// this.state.messages.reverse()
 					this.setState({
 						messages: this.state.messages
 					});
+
 				});	
 			})
 			.catch((err) => {
@@ -141,7 +143,7 @@ export default class Chats extends Component {
 		console.log(this.props.id+"kk")
 		return (
 			<GiftedChat
-				inverted={true}
+				inverted={false}
 				// scrollToBottom={true}
 				messages={this.state.messages}
 				alignTop={false}

@@ -56,29 +56,32 @@ export default class ProfileScreen extends Component {
     AsyncStorage.removeItem('token_type')
   }
   logout(){
-    axios({
-      method: 'get',
-      url: url +'logout',
-      headers: {
-        'Authorization': this.state.token_type+' '+this.state.token,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    })
-      .then(res => {
-       let temp=JSON.stringify(res.data);
-        if(temp.includes('message')){
-          AsyncStorage.clear();
-          this.removeData();
-          Actions.Login();
-        }
-        else{
-          console.log(res.data)
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    AsyncStorage.clear();
+    this.removeData();
+    Actions.Login();
+    // axios({
+    //   method: 'get',
+    //   url: url +'logout',
+    //   headers: {
+    //     'Authorization': this.state.token_type+' '+this.state.token,
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //   },
+    // })
+    //   .then(res => {
+    //    let temp=JSON.stringify(res.data);
+    //     if(temp.includes('message')){
+    //       AsyncStorage.clear();
+    //       this.removeData();
+    //       Actions.Login();
+    //     }
+    //     else{
+    //       console.log(res.data)
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
   }
   render() {
     return (

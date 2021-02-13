@@ -1,10 +1,15 @@
+import { Item } from 'native-base';
 import React from 'react'
 import { Component } from 'react';
 import {View, Text, StyleSheet,AsyncStorage} from 'react-native'
 import {TouchableOpacity, FlatList } from 'react-native-gesture-handler'
 import {Actions} from 'react-native-router-flux'
 const data = [
-    {key: '1'},
+    {id: '1', name: "IIUI"},
+    {id: '2' , name: "NUST"},
+    {id: '3' , name: "FAST"},
+    {id: '4' , name: "NUML"},
+    {id: '5' , name: "BIIT"},
   ];
 
 export default class Schools extends Component {
@@ -24,12 +29,12 @@ retriveData = async() =>{
 
 
 
-    Test(){
+    Test({item}){
        
         return(
-          <TouchableOpacity onPress={()=>Actions.SelectDepartment()} >
+          <TouchableOpacity onPress={()=>Actions.SelectDepartment({schoolname: item.name})} >
           <View style={styles.postContainer} >
-              <Text style={{fontSize:20}} >Islamic International University</Text>
+              <Text style={{fontSize:20}} >{item.name}</Text>
           </View>
           </TouchableOpacity>
         )

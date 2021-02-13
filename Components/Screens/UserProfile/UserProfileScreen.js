@@ -31,6 +31,8 @@ export default class UserProfileScreen extends Component {
       user_name: '',
       user_department: '',
       user_photo: '',
+      user_education: '',
+      user_email: '',
 
       modalVisible: false,
       description: '',
@@ -67,8 +69,10 @@ export default class UserProfileScreen extends Component {
     this.setState({ token_type: await AsyncStorage.getItem('token_type') })
     this.getUser();
   }
+  
 
   getUser() {
+
     axios({
       method: 'get',
       url: userProfile + this.props.id,
@@ -90,8 +94,9 @@ export default class UserProfileScreen extends Component {
             user_name: res.data.profile.name,
             user_department: res.data.profile.department,
             user_photo: res.data.profile.photo,
-            user_id: res.data.profile.id
-
+            user_id: res.data.profile.id,
+            user_education: res.data.profile.education,
+            user_email: res.data.profile.email
           })
         }
 
@@ -144,6 +149,7 @@ export default class UserProfileScreen extends Component {
 }
   
   render() {
+  
     const { modalVisible } = this.state;
     return (
       <View style={{flex:1}}>
@@ -152,7 +158,7 @@ export default class UserProfileScreen extends Component {
           placement="left"
           leftComponent={<Icon onPress={() => {
             return (
-              console.log("Hai")
+              console.log(".")
             )
           }} style={{ marginRight: 20, color: 'grey' }} name="arrow-left" size={26} color="grey" />}
 
@@ -221,16 +227,21 @@ export default class UserProfileScreen extends Component {
             <>
               <UserBio
                 user_name={this.state.user_name}
+                user_school= {this.state.user_school}
                 user_userName={this.state.user_username}
-                user_school={this.state.user_school}
+                user_education={this.state.user_education}
+                user_email={this.state.user_email}
+                user_photo={this.state.user_photo}
               />
-
+      
               <UserProfileHeader
+                // chatted= {this.props.id}
                 id={this.props.id}
                 user_followers={this.state.user_followers}
                 following={this.state.user_isfollowing}
 
               />
+
               <UserLineSeperator />
 
               <UserProfileGrid
@@ -246,6 +257,7 @@ export default class UserProfileScreen extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: '#fff',

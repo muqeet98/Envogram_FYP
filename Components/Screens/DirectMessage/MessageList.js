@@ -8,7 +8,7 @@ import { Icon } from 'react-native-elements'
 import DirectMessageSearch from './DirectMessageSearch';
 import Title from './Title';
 import axios from 'axios';
-import {allusers, urlMessages} from '../../API/types'
+import {allusers, Messageslist, urlMessages, Messages, base_url} from '../../API/types'
 import MessageListItem from './MessageListItem';
 import {Actions} from 'react-native-router-flux'
 
@@ -34,10 +34,10 @@ export default class MessagesList extends Component {
   }
 
   getMessages(){
-  console.log("hai");
+  console.log("hai data    fgg");
     axios({
       method: 'get',
-      url: allusers,
+      url: base_url+ '/api/user/UserList',
       headers: {
         'Authorization':this.state.token_type+' '+this.state.token,
         'Content-Type': 'application/json',
@@ -45,13 +45,14 @@ export default class MessagesList extends Component {
       },
     })
       .then(res => {
-       let temp= res.data.data;
-        if(temp != null){
-          console.log(temp)
+        
+       let temp= res.data;
+        if(temp != null ){
+          console.log(res.data)
           this.setState({
             dataSource: temp
           })
-          console.log("Hai Data Done", this.state.dataSource)
+          console.log("", this.state.dataSource)
         }
         else{
           console.log(res.data)
@@ -96,21 +97,18 @@ export default class MessagesList extends Component {
             marginTop: 15,
           }}>
           <View style={{flexDirection: 'row'}}>
-            <Image
-              source={{uri: 'https://picsum.photos/600'}}
-              style={{width: 60, height: 60, borderRadius: 70}}
-            />
+          <Image source={{ uri: 'data:image/jpeg;base64,' + item.photo }} style={{ width: 60, height: 60, borderRadius: 30 }} />
             <View style={{flexDirection: 'column', marginStart: 15}}>
               <Text style={{color: 'black', fontWeight: 'bold'}}  >
                 {item.name}
               </Text>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={{color: colors.textFaded2}}>{item.email}</Text>
+              <Text style={{color: colors.textFaded2}}>{item.email}</Text>
               </View>
             </View>
           </View>
   
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <View>
             <Icon
                 style={{width:25, height:25, marginTop: 10}}
@@ -118,7 +116,7 @@ export default class MessagesList extends Component {
                 type='simple-line-icon'
                 color='black' />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </TouchableOpacity>
     );

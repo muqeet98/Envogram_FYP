@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Image, Text, StyleSheet, AsyncStorage} from 'react-native';
+import {View, Image, Text, StyleSheet, AsyncStorage,ToastAndroid} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Button} from 'react-native-elements'
 import axios from 'axios';
@@ -25,21 +25,25 @@ export default class UserProfileHeader extends Component {
       to: '',
       email: '',
       name: '',
-      id: ''
+      id: '',
+      chated: '',
+      education: ''
     }
   }
   UNSAFE_componentWillMount(){
     this.retriveData();
   }
+
+
   retriveData = async() =>{
       this.setState({token: await AsyncStorage.getItem('token')})
       this.setState({token_type: await AsyncStorage.getItem('token_type')})
-      this.setState({user_id:this.props.id})
-      this.getFollowers()
-
+      this.setState({user_id: await AsyncStorage.getItem('id')})
+      this.getFollowers()   
   }
 
   getFollowers(){
+     console.log("Hai Chatted", this.state.chated)
     axios({
       method: 'get',
       url: userProfile + this.props.id,
@@ -51,7 +55,7 @@ export default class UserProfileHeader extends Component {
     })
       .then(res => {
        let temp=JSON.stringify(res.data);
-       console.log("HAhaha", res.data.profile.email);
+       console.log("HAhaha", res.data);
         if(temp.includes('name')){
           this.setState({
             isfollowing: res.data.following,
@@ -59,9 +63,11 @@ export default class UserProfileHeader extends Component {
             to: res.data.profile.id,
             email: res.data.profile.email,
             name: res.data.profile.name,
+            chated: res.data.chattedAlready,
+            education: res.data.education
             
-
           })
+          console.log("Hellllloo Chatted",this.state.chated)
           if(this.state.isfollowing == true){
             this.setState({following:"Unfollow"})
           }
@@ -79,7 +85,17 @@ export default class UserProfileHeader extends Component {
         console.log(err);
       })
     }
-
+funCall(){
+  //console.log("Hai")
+  console.log(this.state.chated)
+  if(this.state.chated == true){
+    console.log("True Hai")
+    Actions.Chat({ text: this.state.email,name:this.state.name, to:this.state.to , token_type:this.state.token_type,token:this.state.token, id: this.state.user_id})
+  }
+  else{
+    ToastAndroid.show("Please Send a Chat Request First",ToastAndroid.SHORT);
+  }
+}
 
   Follow_Unfollow(){
     let data = {};
@@ -117,6 +133,7 @@ export default class UserProfileHeader extends Component {
   
 
   render() {
+  
     return (
       <View style={Styles.container}>
         <View style={Styles.container2}>
@@ -133,12 +150,17 @@ export default class UserProfileHeader extends Component {
               title={this.state.following} />
           </View>
           <View style={Styles.container3}>
-            <Button
+
+              <Button
               titleStyle={{ color: "#000" }}
               buttonStyle={[Styles.messageButton]}
               title="Message"
-              onPress = {()=>Actions.Chat({ text: this.state.email,name:this.state.name,to:this.state.to,token_type:this.state.token_type,token:this.state.token, id: this.state.user_id})}
+             onPress={()=> this.funCall()}     
+
+              //onPress = { () =>Actions.Chat({ text: this.state.email,name:this.state.name, to:this.state.to , token_type:this.state.token_type,token:this.state.token, id: this.state.user_id})}
+             
               />
+   
           </View>
         </View>
       </View>  

@@ -16,7 +16,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { batch } from 'react-redux';
 import axios from 'axios';
-import { urlUpdateProfile } from '../../API/types';
+import { base_url, urlUpdateProfile } from '../../API/types';
 import { Actions } from 'react-native-gifted-chat';
 import { Alert } from 'react-native';
 export default class EditProfile extends Component {
@@ -40,7 +40,7 @@ export default class EditProfile extends Component {
 
 			image: null,
 
-			base64string: '',
+			base64string: null,
 
 			PostArray: []
 		};
@@ -65,7 +65,9 @@ export default class EditProfile extends Component {
 			batch: await AsyncStorage.getItem('batch'),
 			school: await AsyncStorage.getItem('school'),
 			token: await AsyncStorage.getItem('token'),
-			token_type: await AsyncStorage.getItem('token_type')
+			token_type: await AsyncStorage.getItem('token_type'),
+			phone_number: await AsyncStorage.getItem('phone_number')
+
 		});
 	};
 
@@ -93,16 +95,15 @@ export default class EditProfile extends Component {
 		}
 	};
 
-	PostData = async () => {
-      if(this.state.name==''){
-		  Alert.alert("Name cannot be empty");
-	  }else{
+	PostData2 = async () => {
+    //   if(this.state.name==''){
+	// 	  Alert.alert("Name cannot be empty");
+	//   }else{
 		this.state.PostArray.push({
 			name: this.state.name,
 			username: this.state.username,
 			email: this.state.email,
 			phone_number: this.state.phone_number,
-
 			education: this.state.education,
 			work_history: this.state.work_history,
 		    photo: this.state.base64string
@@ -125,8 +126,43 @@ export default class EditProfile extends Component {
         // Actions.
 			})
 			.catch((error) => console.log(error));
-	  }
+	//   }
 		
+		// console.log("haii")
+	};
+
+
+	PostData = async () => {
+
+		// console.log(this.state.base64string)
+
+		this.state.PostArray.push({
+			name: this.state.name,
+			username: this.state.username,
+			email: this.state.email,
+			education: this.state.education,
+			phone_number: this.state.phone_number,
+			work_history: this.state.work_history,
+	        photo: this.state.base64string
+		});
+
+		fetch( base_url +'/api/user/update-profile', {
+			method: 'post',
+			headers: {
+				Authorization: this.state.token_type + ' ' + this.state.token,
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+
+			body: JSON.stringify(this.state.PostArray[0])
+		})
+			.then((Response) => Response.json())
+			.then((responseData) => {
+				alert('Updated Successfully!', responseData);
+        console.log('Hai', responseData);
+        // Actions.
+			})
+			.catch((error) => console.log(error));
 		// console.log("haii")
 	};
 
@@ -140,14 +176,17 @@ export default class EditProfile extends Component {
 	};
 
 	_pickImage = async () => {
+
 		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.All, //All,Images,Videos
+			mediaTypes: ImagePicker.MediaTypeOptions.Images, //All,Images,Videos
 			allowsEditing: true,
 			aspect: [ 4, 3 ],
-			quality: 1,
+			maxWidth: 500,
+			maxHeight: 500,
+			quality: 0.5,
 			base64: true
 		});
-		console.log('URI', result);
+		// console.log('URI', result.base64);
 		this.setState({ base64string: result.base64 });
 		// console.log('ye ha' + this.state.base64string);
 
@@ -155,6 +194,7 @@ export default class EditProfile extends Component {
 			this.setState({ image: result.uri });
 			// console.log('Image ka console' + this.state.Image);
 		}
+	
 	};
 
 	render() {
@@ -254,6 +294,8 @@ export default class EditProfile extends Component {
             <TextInput style={styles.loginFormTextInput}
               autoCapitalize="none"
               keyboardType='phone-pad'
+			  maxLength={11}
+			  value={this.state.phone_number}
               placeholder="Phone Number"
               placeholderTextColor="grey"
               onChangeText = {(text)=>this.setState({phone_number:text})}

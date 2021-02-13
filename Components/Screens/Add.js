@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet, ToastAndroid, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet, ToastAndroid, AsyncStorage,Image } from 'react-native';
 import { Textarea } from 'native-base';
 import Modal from 'react-native-modal';
 import { Actions } from 'react-native-router-flux';
@@ -30,6 +30,8 @@ export default class Add extends Component {
 		this.setState({ token: await AsyncStorage.getItem('token') });
 		this.setState({ token_type: await AsyncStorage.getItem('token_type') });
   };
+
+
   
 	submit() {
 		console.log('Hai', this.state.Visibility);
@@ -43,7 +45,9 @@ export default class Add extends Component {
 		} else {
 			ToastAndroid.show('Please fill all the required Feilds', ToastAndroid.SHORT);
 		}
+
 	}
+
 	openModal = () => {
 		this.setState({
 			isModalVisible: true
@@ -64,10 +68,8 @@ export default class Add extends Component {
 	post() {
 		let body = {};
 		body.text = this.state.postText;
-    body.visibility = this.state.Visibility;
-    // body.user_id: '2';
-    // body.request_user_id: '3';
-    
+        body.visibility = this.state.Visibility;
+
 		axios({
 			method: 'post',
 			url: urlPost,
@@ -82,11 +84,13 @@ export default class Add extends Component {
 				let check = JSON.stringify(res.data);
 				if (check.includes('text')) {
 					ToastAndroid.show('POST Successful', ToastAndroid.SHORT);
+				    this.setState({Visibility: '',postText:''})
 					this.closeModal();
+					
 				}
 			})
 			.catch((err) => {
-				this.closeModal();
+				// this.closeModal();
 				ToastAndroid.show('Error Returned', ToastAndroid.SHORT);
 			});
 	}
@@ -98,11 +102,19 @@ export default class Add extends Component {
 					<View style={styles.postContainer}>
 						<View style={{ flexDirection: 'row' }}>
 							<Text style={{ left: 65, top: 25 }}>{this.state.name} </Text>
-							<Text style={{ left: 110, top: 25, color: 'grey' }}> </Text>
+							{/* <Text style={{ left: 110, top: 25, color: 'red' }}> </Text> */}
 						</View>
 						<View style={styles.profileContainer} />
+						<Image
+          source={{uri: this.state.photo}}
+          style={{height: 80,
+            width: 80,
+            borderRadius: 100,
+            marginLeft: 20}}
+        />
 						<View style={styles.innerContainer}>
 							<Textarea
+							value={this.state.postText}
 								placeholder={'Write Post'}
 								style={{
 									paddingLeft: 10,
@@ -116,6 +128,8 @@ export default class Add extends Component {
 					</View>
 
 					<DropDownPicker
+				        // value={this.state.visibility}
+						// defaultValue=''
 						selectedLabelStyle={{ color: '#fff' }}
 						arrowColor={'#000000'}
 						labelStyle={{ color: '#fff' }}
@@ -128,7 +142,7 @@ export default class Add extends Component {
 							justifyContent: 'center'
 						}}
 						items={[
-							{ label: 'Category', value: '', selected: true },
+							{ label: 'Visibility', value: '', selected: true },
 							{ label: 'Public', value: 'Public' },
 							{ label: 'School', value: 'School' },
 							{ label: 'Department', value: 'Department' }

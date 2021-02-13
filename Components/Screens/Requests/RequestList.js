@@ -19,6 +19,7 @@ export default class MessagesList extends Component{
     }
   }
   renderItemsFun = ({item,index}) => {
+    console.log(item)
     return(
     <View
     style={{
@@ -101,7 +102,6 @@ export default class MessagesList extends Component{
       .catch(err => {
         console.log(err);
       }) }
-      
       >
       <View>
       <Icon

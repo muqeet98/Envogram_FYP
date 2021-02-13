@@ -7,7 +7,7 @@ export default function StoryListItem({item, storyOnPress}) {
     <View style={Styles.container}>
       <TouchableOpacity onPress={storyOnPress}>
         <LinearGradient
-          colors={['#CA1D7E', '#E35157', '#F2703F']}
+          colors={['#000', '#E35157', '#F2703F']}
           start={{x: 0.0, y: 1.0}}
           end={{x: 1.0, y: 1.0}}
           style={{borderRadius: 100, padding: 2}}>

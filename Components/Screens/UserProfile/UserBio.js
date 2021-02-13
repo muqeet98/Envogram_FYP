@@ -19,7 +19,7 @@ export default class UserBio extends Component{
         }}>
         <TouchableOpacity>
           <Image
-            source={{ uri: 'https://picsum.photos/600' }}
+            source={{ uri: 'data:image/jpeg;base64,' + this.props.user_photo }}
             style={{
               height: 80,
               width: 80,
@@ -34,7 +34,14 @@ export default class UserBio extends Component{
             <Text style={{ color: '#000' }}>
             {this.props.user_school}
         </Text>
-          <Text style={{ color: "#4c98cf" }} >{this.props.user_userName}</Text>
+          <Text style={{ color: "#000" }} >{this.props.user_email}</Text>
+
+          {/* <Text style={{ color: "#4c98cf" }} >{this.props.user_education}</Text> */}
+           {this.props.user_education != null ?
+           <Text style={{ color: "#000" }} >{this.props.user_education}</Text>
+           :
+           <Text></Text>
+          }
           </View>
         </View>
 
@@ -43,6 +50,7 @@ export default class UserBio extends Component{
     );
   }
 }
+
 const styles = StyleSheet.create({
   loginButton : {
     backgroundColor: '#4c98cf',
