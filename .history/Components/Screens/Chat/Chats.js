@@ -18,16 +18,16 @@ export default class Chats extends Component {
 		this.onSend = this.onSend.bind(this);
 	}
 
-	retriveData = async () => {};
+	// retriveData = async () => {};
 
-	renderBubble() {
-		// if (currentMessage.user._id == this.state.senderData.id) {
-      if (messages == this.state.senderData.id) {
-			<Bubble {...props} wrapperStyle={{ right: { height: 200, backgroundColor: 'blue' } }} />;
-		} else {
-			<Bubble {...props} wrapperStyle={{ left: { backgroundColor: '#f0f0f0' } }} />;
-		}
-	}
+	// renderBubble() {
+	// 	// if (currentMessage.user._id == this.state.senderData.id) {
+    //   if (messages == this.state.senderData.id) {
+	// 		<Bubble {...props} wrapperStyle={{ right: { height: 200, backgroundColor: 'blue' } }} />;
+	// 	} else {
+	// 		<Bubble {...props} wrapperStyle={{ left: { backgroundColor: '#f0f0f0' } }} />;
+	// 	}
+	// }
 
 	loadMessages() {
 		console.log('Authorization', this.props.token_type + ' ' + this.props.token);
@@ -41,7 +41,7 @@ export default class Chats extends Component {
 			}
 		})
 			.then((res) => {
-				console.log('Hai', res);
+				console.log('Hai', res.data);
 				res.data.forEach((element) => {
 					console.log(element.from_user.id);
 					this.state.messages.push({
@@ -50,7 +50,7 @@ export default class Chats extends Component {
 						createdAt: element.created_at,
 						user: {
 							_id: element.from_user.id,
-							name: element.from_user.name
+							 name: element.from_user.name
 						}
 
             
@@ -88,9 +88,7 @@ export default class Chats extends Component {
 			})
 			.catch((error) => console.log(error));
 	}
-	// componentDidMount(){
 
-	// }
 	componentDidMount() {
 		this.setState({ to: this.props.to });
 		this.retriveData();
@@ -114,7 +112,7 @@ export default class Chats extends Component {
 	onSend(messages = []) {
 		this.setState((previousState) => {
 			return {
-				messages: GiftedChat.append(previousState.messages, messages.reverse())
+				messages: GiftedChat.append(previousState.messages, messages)
 			};
 		});
 		this.sendMessage(messages[0].text);

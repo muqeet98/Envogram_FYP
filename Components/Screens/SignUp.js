@@ -69,7 +69,7 @@ submit(){
           <View style={styles.wrapper}>
 
             <Text style={styles.primaryfont}>Register</Text>
-            <Text style={styles.secondaryfont}>Form# 01</Text>
+            <Text style={styles.secondaryfont}></Text>
             <TextInput style={styles.loginFormTextInput}
               autoCapitalize="none"
               placeholder="Full Name (Min. two words)"

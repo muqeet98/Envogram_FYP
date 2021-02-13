@@ -87,7 +87,7 @@ export default class MessagesList extends Component {
   //  if(item.to == this.state.id){
     return (
       // <TouchableOpacity onPress = {()=>Actions.Chat({text:item.text,from:item.from_user.name,to:item.from,token_type:this.state.token_type,token:this.state.token})} >
-        <TouchableOpacity onPress = {()=>Actions.Chat({ text: item.email,name:item.name,to:item.id,token_type:this.state.token_type,token:this.state.token, id: this.state.id})} >
+        <TouchableOpacity onPress = {()=>Actions.Chat({ text: item.email,name2:item.name,to:item.id,token_type:this.state.token_type,token:this.state.token, id: this.state.id})} >
         <View
           style={{
             flexDirection: 'row',

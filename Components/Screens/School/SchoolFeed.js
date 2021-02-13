@@ -67,8 +67,7 @@ export default class SchoolFeed extends Component {
         <Text style={{left:65,top:25}} >{item.name} </Text>
         {/* <Text style={{left:110,top:25,color:"grey"}} >10min ago </Text> */}
         </View>
-    <View style={styles.profileContainer} >
-    </View>
+        <Image source={{ uri: 'data:image/png;base64,'+ item.photo }} style={{ width: 45, height: 45, borderRadius: 30 }} />
         <View style={styles.innerContainer}>
     <Text style={{textAlign:"justify", paddingLeft: 10, paddingRight: 10}} >{item.text}</Text>
         </View>
@@ -78,6 +77,7 @@ export default class SchoolFeed extends Component {
     );
   }
 
+  
  
   render(){
     return (

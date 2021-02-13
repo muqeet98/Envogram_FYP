@@ -31,6 +31,7 @@ export default class Chats extends Component {
 
 	loadMessages() {
 		console.log('Authorization', this.props.token_type + ' ' + this.props.token);
+		console.log("Hell", this.state.messages)
 		axios({
 			method: 'get',
 			url: base_url +'/api/user/messages/' + this.props.to,
@@ -41,8 +42,8 @@ export default class Chats extends Component {
 			}
 		})
 			.then((res) => {
-				console.log('Hai', res);
-
+				console.log('Hai', res.data);
+            
 				res.data.forEach((element,index) => {
 					// console.log({
 					// 	_id: element.id,
@@ -54,20 +55,35 @@ export default class Chats extends Component {
 					// 	}
 
 					// });
-
-					if(this.state.messages.length<=index)
-					this.state.messages.push({
-						_id: element.id,
-						text: element.text,
-						createdAt: element.created_at,
-						user: {
-							_id: parseInt(element.from),
-							name: element.from
-						}
-
-					});
-
-					// this.state.messages.reverse()
+                   console.log(this.props.name2);
+					// if(this.state.messages.length<=index)
+					if(this.props.to==element.from){
+						this.state.messages.push({
+							_id: parseInt(element.id),
+							text: element.text,
+							createdAt: element.created_at,
+							user: {
+								_id: parseInt(element.from),
+								name: this.props.name2
+							}
+	
+						});
+	
+					}else{
+						this.state.messages.push({
+							_id: parseInt(element.id),
+							text: element.text,
+							createdAt: element.created_at,
+							user: {
+								_id: parseInt(element.from),
+								name: "b"
+							}
+	
+						});
+	
+					}
+					
+					//  this.state.messages.reverse();
 					this.setState({
 						messages: this.state.messages
 					});

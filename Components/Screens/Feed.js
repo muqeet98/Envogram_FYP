@@ -15,6 +15,15 @@ export default class Feed extends Login {
     super();
   }
 
+//     componentDidMount() {
+//     this._unsubscribe = navigation.addListener('focus', () => {
+//       // do something
+//     });
+//   }
+//  componentWillMount(){
+//   didBlurSubscription.remove();
+//  }
+
   render(){
   return (
 
@@ -25,11 +34,12 @@ export default class Feed extends Login {
         style: { marginTop: 20, borderRadius: 10, width: Dimensions.get('screen').width-25, alignSelf:'center', height: 50,}
     }} >
       <Tab.Screen name="Public" component={PublicFeed} />
-      <Tab.Screen name="School" component={SchoolFeed}/>
+      <Tab.Screen name="School" component={SchoolFeed} />
       <Tab.Screen name="Department" component={DepartmentFeed} />
+
     </Tab.Navigator>
     </NavigationContainer>
-
+    
     );
   }
 }

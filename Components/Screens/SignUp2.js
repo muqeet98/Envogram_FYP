@@ -118,7 +118,7 @@ register(data){
       <View style ={styles.wrapper}>
    
       <Text style={styles.primaryfont}>Register</Text>
-        <Text style={styles.secondaryfont}>Form# 02</Text>
+        {/* <Text style={styles.secondaryfont}>Form# 02</Text> */}
         <TextInput style={styles.loginFormTextInput}
         autoCapitalize="none"
         keyboardType="email-address"

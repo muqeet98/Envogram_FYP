@@ -62,9 +62,10 @@ export default class SelectDepartment extends Component {
 						<View style={{ flexDirection: 'row' }}>
 							<Text style={{ left: 65, top: 25, fontSize: 20 }}>{item.name}</Text>
 						</View>
-						<View style={styles.profileContainer}>
+						{/* <View style={styles.profileContainer}>
 							<Image source={{ uri: item.photo }} />
-						</View>
+						</View> */}
+						<Image source={{ uri: 'data:image/png;base64,'+ item.photo }} style={{ width: 45, height: 45, borderRadius: 30 }} />
 					</View>
 				</View>
 			</SafeAreaView>
@@ -74,7 +75,7 @@ export default class SelectDepartment extends Component {
 	render() {
 		return (
 			<View style={{ flex: 1, backgroundColor: '#f5f4f9' }}>
-				<Text>Hello {this.props.schoolname}</Text>
+			
 
 				<DropDownPicker
 					placeholder="Select Department"

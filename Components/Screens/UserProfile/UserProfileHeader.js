@@ -99,7 +99,7 @@ funCall(){
 
   Follow_Unfollow(){
     let data = {};
-    data.user_id = this.state.user_id;
+    data.user_id = this.state.to;
     axios({
       method: 'post',
       url: Follow_Unfollow,

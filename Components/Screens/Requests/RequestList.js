@@ -1,5 +1,5 @@
 import React, { useEffect, useState,Component } from 'react';
-import {Text,AsyncStorage,View,TouchableOpacity,Image} from 'react-native';
+import {Text,AsyncStorage,View,TouchableOpacity,Image,Textarea} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import { acceptChatReq, deleteChatReq, sendRequest } from '../../API/types';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements'
 import RequestListItem from './RequestListItem';
 import { Actions } from 'react-native-gifted-chat';
 import { base_url } from '../../API/types';
+import { Alert } from 'react-native';
 
 export default class MessagesList extends Component{
   
@@ -32,15 +33,18 @@ export default class MessagesList extends Component{
       
     <View style={{flexDirection: 'row'}}>
       <TouchableOpacity>
-      <Image
-        source={{uri: 'https://picsum.photos/600'}}
-        style={{width: 60, height: 60, borderRadius: 70}}
-      />
+      <Image source={{ uri: 'data:image/png;base64,'+ item.photo }} style={{ width: 60, height: 60, borderRadius: 30 }} />
       </TouchableOpacity>
-      <View style={{flexDirection: 'column', marginStart: 15, marginTop: 20}}>
+      <View style={{flexDirection: 'column', marginStart: 5, marginTop: 5}}>
         <Text style={{color: 'black', fontWeight: 'bold'}}>
-          {item.title}
+          {item.name}
         </Text>
+
+        <TouchableOpacity style={{backgroundColor: "green", borderRadius: 20, width: 120, height:30,justifyContent:'center'}}
+        onPress={()=> Alert.alert( "Title: "+ item.title , "Description: dcdhjcgjcyg jd jdh" + item.body)}
+        >
+          <Text style={{alignSelf: 'center'}}>Request Detail</Text>
+        </TouchableOpacity>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
            
         </View>
@@ -52,7 +56,7 @@ export default class MessagesList extends Component{
       <TouchableOpacity onPress={() =>  
          axios({
       method: 'get',
-      url: acceptChatReq + item.id,
+      url: acceptChatReq + item.requestid,
       headers: {
         Authorization: this.state.token_type + ' ' + this.state.token,
         'Content-Type': 'application/json',
@@ -97,6 +101,7 @@ export default class MessagesList extends Component{
         this.setState({
             dataArr: this.state.dataArr.splice(index, 1) 
           })
+          console.log
         // this.state.dataArr.splice(index, 1)
       })
       .catch(err => {
