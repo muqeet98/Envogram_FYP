@@ -156,11 +156,11 @@ export default class UserProfileScreen extends Component {
         <Header
         backgroundColor='#fff'
           placement="left"
-          leftComponent={<Icon onPress={() => {
-            return (
-              console.log(".")
-            )
-          }} style={{ marginRight: 20, color: 'grey' }} name="arrow-left" size={26} color="grey" />}
+          // leftComponent={<Icon onPress={() => {
+          //   return (
+          //     console.log(".")
+          //   )
+          // }} style={{ marginRight: 20, color: 'grey' }} name="arrow-left" size={26} color="grey" />}
 
           centerComponent={{ text: 'User Profile', style: { color: '#000', alignSelf:'center' } }}
           rightComponent={<Icon onPress={() => { this.setModalVisible(true); }}

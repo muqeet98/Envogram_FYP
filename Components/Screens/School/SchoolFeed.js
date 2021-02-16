@@ -69,7 +69,8 @@ export default class SchoolFeed extends Component {
         </View>
         <Image source={{ uri: 'data:image/png;base64,'+ item.photo }} style={{ width: 45, height: 45, borderRadius: 30 }} />
         <View style={styles.innerContainer}>
-    <Text style={{textAlign:"justify", paddingLeft: 10, paddingRight: 10}} >{item.text}</Text>
+    <Text onLongPress={() => {Clipboard.setString(item.text),
+       ToastAndroid.show("Coppied",ToastAndroid.SHORT);  }} style={{textAlign:"justify", paddingLeft: 10, paddingRight: 10}} >{item.text}</Text>
         </View>
     </View>
     </View>

@@ -14,13 +14,13 @@ import { asin } from 'react-native-reanimated';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import { Actions } from 'react-native-router-flux'
 import { batch } from 'react-redux';
 import axios from 'axios';
 import { base_url, urlUpdateProfile } from '../../API/types';
-import { Actions } from 'react-native-gifted-chat';
+
 import { Alert } from 'react-native';
 export default class EditProfile extends Component {
-
 	constructor() {
 		super();
 		this.state = {
@@ -159,6 +159,7 @@ export default class EditProfile extends Component {
 			.then((Response) => Response.json())
 			.then((responseData) => {
 				alert('Updated Successfully!', responseData);
+				Actions.ProfileScreen();
         console.log('Hai', responseData);
         // Actions.
 			})

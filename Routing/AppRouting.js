@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {Scene, Router, Actions, Lightbox, Modal} from 'react-native-router-flux'
 
-import {View, StyleSheet, Dimensions , TouchableOpacity , TextInput, Alert} from 'react-native'
+import {View, StyleSheet, Dimensions , TouchableOpacity , TextInput, Alert,LogBox} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from '../Components/Screens/Login'
 import SignUp from '../Components/Screens/SignUp'
@@ -19,7 +19,8 @@ import CompleteProfile from '../Components/Screens/CompleteProfile'
 import EditProfile from '../Components/Screens/Profile/EditProfile'
 import Chats from '../Components/Screens/Chat/Chats'
 import Chat1 from '../Components/Screens/Chat1'
-import AlertModel from '../Components/Screens/UserProfile/AlertModel'
+import AlertModel from '../Components/Screens/UserProfile/AlertModel';
+LogBox.ignoreAllLogs();
 // const [modalVisible, setModalVisible] = useState(false);
 const HomeIcon =({focused}) => {
     return (
