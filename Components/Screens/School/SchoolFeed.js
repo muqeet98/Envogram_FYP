@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { View, Text, StyleSheet,  SafeAreaView,Image, AsyncStorage, ToastAndroid, Dimensions } from 'react-native'
+import { View, Text, StyleSheet,  SafeAreaView,Image, AsyncStorage, ToastAndroid, Dimensions ,Linking} from 'react-native'
 import {FlatList} from 'react-native-gesture-handler';
 import {url1} from '../../API/types';
 import axios from 'axios';
@@ -64,12 +64,12 @@ export default class SchoolFeed extends Component {
         <View style={{flex:1, backgroundColor:"#f5f4f9" }}>
         <View style={styles.postContainer}>
         <View style={{flexDirection:"row"}}>
-        <Text style={{left:65,top:25}} >{item.name} </Text>
+        <Text style={{left:65,top:25}} >{item.name}</Text>
         {/* <Text style={{left:110,top:25,color:"grey"}} >10min ago </Text> */}
         </View>
         <Image source={{ uri: 'data:image/png;base64,'+ item.photo }} style={{ width: 45, height: 45, borderRadius: 30 }} />
         <View style={styles.innerContainer}>
-    <Text onLongPress={() => {Clipboard.setString(item.text),
+    <Text  onPress={() =>  Linking.openURL(item.text)} onLongPress={() => {Clipboard.setString(item.text),
        ToastAndroid.show("Coppied",ToastAndroid.SHORT);  }} style={{textAlign:"justify", paddingLeft: 10, paddingRight: 10}} >{item.text}</Text>
         </View>
     </View>

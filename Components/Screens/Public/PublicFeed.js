@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { View, Text, StyleSheet,  SafeAreaView,Image, AsyncStorage, ToastAndroid,Dimensions ,Clipboard} from 'react-native';
+import { View, Text, StyleSheet,  SafeAreaView,Image, AsyncStorage, ToastAndroid,Dimensions ,Clipboard, Linking} from 'react-native';
 // import Clipboard from '@react-native-community/clipboard';
 import {FlatList} from 'react-native-gesture-handler';
 import {url1} from '../../API/types';
@@ -74,7 +74,7 @@ export default class PublicFeed extends Component {
     </View> */}
     <Image source={{ uri: 'data:image/png;base64,'+ item.photo }} style={{ width: 45, height: 45, borderRadius: 30 }} />
         <View style={styles.innerContainer}>
-    <Text onLongPress={() => {Clipboard.setString(item.text),
+    <Text  onPress={() =>  Linking.openURL( item.text)} onLongPress={() => {Clipboard.setString(item.text),
        ToastAndroid.show("Coppied",ToastAndroid.SHORT);  }} style={{textAlign:"justify", paddingLeft: 10, paddingRight: 10}} >{item.text}</Text>
         </View>
     </View>

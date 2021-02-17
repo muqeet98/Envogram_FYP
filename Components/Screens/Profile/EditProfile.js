@@ -32,9 +32,9 @@ export default class EditProfile extends Component {
 			school: '',
 			department: '',
 			batch: '',
-			phone_number: '',
-			education: '',
-			work_history: '',
+			phone_number: 'null',
+			education: 'null',
+			work_history: 'null',
 			token: '',
 			token_type: '',
 
@@ -195,7 +195,6 @@ export default class EditProfile extends Component {
 			this.setState({ image: result.uri });
 			// console.log('Image ka console' + this.state.Image);
 		}
-	
 	};
 
 	render() {
