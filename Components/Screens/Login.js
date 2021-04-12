@@ -77,7 +77,7 @@ catch(err){
 }
 
 login(data){
-
+  Actions.Feed();
   const firstLogin = true;
   axios({
     method: 'post',
